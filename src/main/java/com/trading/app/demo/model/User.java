@@ -50,6 +50,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Trade> trades;
 
+
+    // CONSTRUCTORS
     public User() {
     }
 
