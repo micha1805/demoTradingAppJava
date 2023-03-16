@@ -2,6 +2,7 @@ package com.trading.app.demo.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,13 @@ public class User {
     private String username;
     private String email;
     private String password;
+
+    @Column(
+            name = "created_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+    )
+    private LocalDateTime createdAt;
 
 
 

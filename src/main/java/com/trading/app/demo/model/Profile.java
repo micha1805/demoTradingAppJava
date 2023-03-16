@@ -3,9 +3,14 @@ package com.trading.app.demo.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table
 public class Profile {
+
+
+    //FIELDS
 
     @Id
     @SequenceGenerator(
@@ -23,7 +28,15 @@ public class Profile {
     private String lastName;
     private String address;
     private String phoneNumber;
+    @Column(
+            name = "created_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+    )
+    private LocalDateTime createdAt;
 
+
+    //RELATIONSHIPS
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "user_id",
@@ -31,6 +44,8 @@ public class Profile {
     )
     private User user;
 
+
+    //CONSTRUCTORS
     public Profile() {
     }
 
@@ -43,6 +58,8 @@ public class Profile {
         this.user = user;
     }
 
+
+    //GETTERS AND SETTERS
     public Long getId() {
         return id;
     }
@@ -89,5 +106,18 @@ public class Profile {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", createdAt=" + createdAt +
+                ", user=" + user +
+                '}';
     }
 }
