@@ -1,5 +1,7 @@
-package com.trading.app.demo.user;
+package com.trading.app.demo.controller;
 
+import com.trading.app.demo.model.User;
+import com.trading.app.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

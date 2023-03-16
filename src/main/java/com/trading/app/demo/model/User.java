@@ -1,4 +1,4 @@
-package com.trading.app.demo.user;
+package com.trading.app.demo.model;
 
 import jakarta.persistence.*;
 

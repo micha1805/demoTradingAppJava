@@ -1,5 +1,6 @@
-package com.trading.app.demo.profile;
+package com.trading.app.demo.repository;
 
+import com.trading.app.demo.model.Profile;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProfileRepository

@@ -1,7 +1,7 @@
-package com.trading.app.demo.profile;
+package com.trading.app.demo.model;
 
 
-import com.trading.app.demo.user.User;
+import com.trading.app.demo.model.User;
 import jakarta.persistence.*;
 
 @Entity
