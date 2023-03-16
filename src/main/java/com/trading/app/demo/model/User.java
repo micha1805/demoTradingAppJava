@@ -2,6 +2,8 @@ package com.trading.app.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 // IMPORTANT : Table MUST be renamed because user is a reserved keyword in Postgresql
 @Table(name="users")
@@ -24,6 +26,21 @@ public class User {
     private String username;
     private String email;
     private String password;
+
+
+
+    // relationships with other models
+    // One-to-one relationship with Profile
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
+
+    // One-to-many relationship with Wire
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Wire> wires;
+
+    // One-to-many relationship with Trade
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Trade> trades;
 
     public User() {
     }

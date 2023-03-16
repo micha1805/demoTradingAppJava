@@ -1,7 +1,6 @@
 package com.trading.app.demo.model;
 
 
-import com.trading.app.demo.model.User;
 import jakarta.persistence.*;
 
 @Entity
