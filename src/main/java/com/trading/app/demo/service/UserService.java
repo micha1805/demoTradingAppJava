@@ -19,4 +19,12 @@ public class UserService {
 
     public List<User> getUsers(){return userRepository.findAll();};
 
+    public User getUserById(Long userId){
+
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "User with Id=" + userId + " does not exist"
+                ));
+    }
+
 }

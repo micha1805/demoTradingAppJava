@@ -24,11 +24,14 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<User> getStudents(){
+    public List<User> getUsers(){
         return userService.getUsers();
 
     }
-
+    @GetMapping("/{userId}")
+    public User getUserById(@PathVariable("userId") Long userId){
+        return userService.getUserById(userId);
+    }
 }
 
 
