@@ -7,7 +7,15 @@ import java.util.List;
 
 @Entity
 // IMPORTANT : Table MUST be renamed because user is a reserved keyword in Postgresql
-@Table(name="users")
+@Table(
+        name="users",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name="student_email_username_unique",
+                        columnNames = {"email", "username"}
+                )
+        }
+)
 public class User {
 
 
@@ -24,7 +32,15 @@ public class User {
     )
 
     private Long id;
+
+    @Column(
+            name="username",
+            nullable = false
+    )
     private String username;
+    @Column(
+            nullable = false
+    )
     private String email;
     private String password;
 

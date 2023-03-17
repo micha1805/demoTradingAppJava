@@ -14,18 +14,31 @@ public class Profile {
 
     @Id
     @SequenceGenerator(
-            name = "profile_sequence",
+            name = "profile_sequence_generator",
             sequenceName = "profile_sequence",
             allocationSize = 1
     )
 
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "profile_sequence"
+            generator = "profile_sequence_generator"
+    )
+    @Column(
+            updatable = false
     )
     private Long id;
+    @Column(
+            nullable = false
+    )
     private String firstName;
+    @Column(
+            nullable = false
+    )
     private String lastName;
+    @Column(
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String address;
     private String phoneNumber;
     @Column(
