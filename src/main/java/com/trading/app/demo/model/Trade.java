@@ -10,6 +10,16 @@ public class Trade {
 
     //FIELDS
     @Id
+    @SequenceGenerator(
+            name = "trade_sequence+generator",
+            sequenceName = "trade_sequence",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "trade_sequence_generator"
+    )
     private long id;
     private String symbol;
     private Integer quantity;
@@ -18,12 +28,12 @@ public class Trade {
     private LocalDateTime openDateTime;
     private LocalDateTime closeDateTime;
     private boolean open;
-    @Column(
-            name = "created_at",
-            nullable = false,
-            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
-    )
-    private LocalDateTime createdAt;
+//    @Column(
+//            name = "created_at",
+//            nullable = false,
+//            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+//    )
+//    private LocalDateTime createdAt;
 
 
 
@@ -43,10 +53,27 @@ public class Trade {
         this.openDateTime = openDateTime;
         this.closeDateTime = closeDateTime;
         this.open = open;
-        this.createdAt = createdAt;
         this.user = user;
     }
 
+    public Trade(String symbol,
+                 Integer quantity,
+                 Integer openPriceInCent,
+                 Integer closePriceInCent,
+                 LocalDateTime openDateTime,
+                 LocalDateTime closeDateTime,
+                 boolean open,
+                 User user) {
+
+        this.symbol = symbol;
+        this.quantity = quantity;
+        this.openPriceInCent = openPriceInCent;
+        this.closePriceInCent = closePriceInCent;
+        this.openDateTime = openDateTime;
+        this.closeDateTime = closeDateTime;
+        this.open = open;
+        this.user = user;
+    }
 
     //GETTERS AND SETTERS
 
@@ -115,13 +142,6 @@ public class Trade {
         this.open = open;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public User getUser() {
         return user;
@@ -142,7 +162,6 @@ public class Trade {
                 ", openDateTime=" + openDateTime +
                 ", closeDateTime=" + closeDateTime +
                 ", open=" + open +
-                ", createdAt=" + createdAt +
                 ", user=" + user +
                 '}';
     }

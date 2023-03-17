@@ -28,19 +28,15 @@ public class Profile {
     private String lastName;
     private String address;
     private String phoneNumber;
-    @Column(
-            name = "created_at",
-            nullable = false,
-            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
-    )
-    private LocalDateTime createdAt;
-
 
     //RELATIONSHIPS
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "user_id",
-            referencedColumnName = "id"
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "user_id_fk"
+            )
     )
     private User user;
 
@@ -49,15 +45,20 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(Long id, String firstName, String lastName, String address, String phoneNumber, User user) {
+    public Profile(Long id, String firstName, String lastName, String address, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.user = user;
     }
 
+    public Profile(String firstName, String lastName, String address, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     //GETTERS AND SETTERS
     public Long getId() {
@@ -116,7 +117,6 @@ public class Profile {
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", createdAt=" + createdAt +
                 ", user=" + user +
                 '}';
     }

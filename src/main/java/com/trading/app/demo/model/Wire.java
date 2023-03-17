@@ -10,17 +10,27 @@ public class Wire {
 
     //FIELDS
     @Id
+    @SequenceGenerator(
+            name = "wire_sequence_generator",
+            sequenceName = "wire_sequence",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "wire_sequence_generator"
+    )
     private long id;
     private long amount;
     private boolean withdrawal;
 
-    @Column(
-            name = "created_at",
-            nullable = false,
-            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
-    )
-    private LocalDateTime createdAt;
-
+//    @Column(
+//            name = "created_at",
+//            nullable = false,
+//            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
+//    )
+//    private LocalDateTime createdAt;
+//
 
 
     // RELATIONSHIPS
@@ -33,6 +43,12 @@ public class Wire {
 
     public Wire(long id, long amount, boolean withdrawal, User user) {
         this.id = id;
+        this.amount = amount;
+        this.withdrawal = withdrawal;
+        this.user = user;
+    }
+
+    public Wire(long amount, boolean withdrawal, User user) {
         this.amount = amount;
         this.withdrawal = withdrawal;
         this.user = user;
@@ -78,7 +94,6 @@ public class Wire {
                 "id=" + id +
                 ", amount=" + amount +
                 ", withdrawal=" + withdrawal +
-                ", createdAt=" + createdAt +
                 ", user=" + user +
                 '}';
     }

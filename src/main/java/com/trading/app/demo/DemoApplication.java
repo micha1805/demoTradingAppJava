@@ -1,7 +1,11 @@
 package com.trading.app.demo;
 
+import com.trading.app.demo.db.DataLoader;
+import com.trading.app.demo.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -10,7 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
 
+		// Get the dataLoader
+		DataLoader dataLoader = context.getBean(DataLoader.class);
+		// run the seed :
+		dataLoader.seedDb();
+	}
 }
