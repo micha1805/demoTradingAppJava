@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/user")
+@RequestMapping(path = "/api/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<User> getUsers(){
         return userService.getUsers();
 
@@ -31,6 +31,16 @@ public class UserController {
     @GetMapping("/{userId}")
     public User getUserById(@PathVariable("userId") Long userId){
         return userService.getUserById(userId);
+    }
+
+    @PutMapping
+    public String updateUser(){
+        return "PUT user";
+    }
+
+    @GetMapping(path = "currentBalance")
+    public String getCurrentBalance(){
+        return "current balance";
     }
 }
 
