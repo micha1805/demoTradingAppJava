@@ -13,22 +13,22 @@ Authorization: Bearer MY.JWT.TOKEN
 
 ## Endpoints API
 
-| Method | route                       |                                                                                              |
-|--------|-----------------------------|----------------------------------------------------------------------------------------------|
-| GET    | /api/v1/login               | Login                                                                                        |
-| POST   | /api/v1/signup              | Signup                                                                                       |
-| POST   | /api/v1/wire                | Make a wire (deposit OR withdraw money)                                                      |
-| GET    | /api/v1/profile             | Fetch all the profile data, including the user's balance                                     |
-| PATCH  | /api/v1/update              | Update user's profile (except balance)                                                       |
-| GET    | /api/v1/trades/index        | Fetch all our trades                                                                         |
-| GET    | /api/v1/trades/:id          | Fetch one trade info                                                                         |
-| GET    | /api/v1/trades/index/open   | Fetch all our open trades                                                                    |
-| GET    | /api/v1/trades/index/closed | Fetch all our closed trades                                                                  |
-| POST   | /api/v1/openTrade/          | Open a long position (buy), the amount and the stock is specified in the body of the request |
-| POST   | /api/v1/closeTrade/:id      | Close the position                                                                           |
-| GET    | /api/v1/closedPNL           | Return the total closed PNL (all closed trades)                                              |
-| GET    | /api/v1/openPNL             | Return the total open PNL (all open trades)                                                  |
-| GET    | /api/v1/currentBalance      | Return current balance (all the money that is NOT in an open position)                       |
+| Method | route                        |                                                                                              |
+|--------|------------------------------|----------------------------------------------------------------------------------------------|
+| GET    | /api/v1/auth/login           | Login                                                                                        |
+| POST   | /api/v1/auth/signup          | Signup                                                                                       |
+| PATCH  | /api/v1/user/update          | Update user's profile (except balance)                                                       |
+| GET    | /api/v1/user/currentBalance  | Return current balance (all the money that is NOT in an open position)                       |
+| GET    | /api/v1/profile              | Fetch all the profile data, including the user's balance                                     |
+| POST   | /api/v1/wire                 | Make a wire (deposit OR withdraw money)                                                      |
+| GET    | /api/v1/trades/index         | Fetch all our trades                                                                         |
+| GET    | /api/v1/trade/:id            | Fetch one trade info                                                                         |
+| GET    | /api/v1/trade/index/open     | Fetch all our open trades                                                                    |
+| GET    | /api/v1/trade/index/closed   | Fetch all our closed trades                                                                  |
+| POST   | /api/v1/trade/openTrade/     | Open a long position (buy), the amount and the stock is specified in the body of the request |
+| POST   | /api/v1/trade/closeTrade/:id | Close the position                                                                           |
+| GET    | /api/v1/trade/closedPNL      | Return the total closed PNL (all closed trades)                                              |
+| GET    | /api/v1/trade/openPNL        | Return the total open PNL (all open trades)                                                  |
 
 
 ### Signup's request body
