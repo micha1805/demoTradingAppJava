@@ -55,4 +55,4 @@ Authorization: Bearer MY.JWT.TOKEN
 }
 ```
 
-(Note that this is not safe to send the password in plaint text but this is a demo) 
+(Same remark as for the Signup) 
