@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
+@Data // for the getters and setters and toString method
+@Builder // to get the builders
+@NoArgsConstructor // to get the no arg constructor
+@AllArgsConstructor //to get the all arg constructor
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 // IMPORTANT : Table MUST be renamed because user is a reserved keyword in Postgresql
 @Table(name="users")
 public class User {
