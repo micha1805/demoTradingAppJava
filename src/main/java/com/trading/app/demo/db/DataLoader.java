@@ -45,23 +45,24 @@ public class DataLoader {
         // actual code
         for (int i = 0; i < usersToSeed; i++) {
 
-            // CREATE A USER
-            User user = new User(
-                    faker.internet().emailAddress(),
-                    "123456"
-            );
+            // CREATE A USER using Lombok builder
+            User user = User.builder()
+                    .email(faker.internet().emailAddress())
+                    .password("123456")
+                    .build();
+
             try {
                 userRepository.save(user);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            // CREATE ITS PROFILE
-            Profile profile = new Profile(
-                    faker.name().firstName(),
-                    faker.name().lastName(),
-                    faker.address().fullAddress(),
-                    faker.phoneNumber().phoneNumber()
-            );
+            // CREATE ITS PROFILE with lombok builder
+            Profile profile = Profile.builder()
+                    .firstName(faker.name().firstName())
+                    .lastName(faker.name().lastName())
+                    .address(faker.address().fullAddress())
+                    .phoneNumber(faker.phoneNumber().phoneNumber())
+                    .build();
 
 
             // BAD PRACTICE TO CHECK ON :
@@ -74,11 +75,10 @@ public class DataLoader {
 
             // CREATE WIRES
             for (int j = 0; j < wiresToSeed; j++) {
-                Wire wire = new Wire(
-                        faker.number().numberBetween(1134, 3321),
-                        random.nextBoolean(),
-                        user
-                );
+                Wire wire = Wire.builder()
+                        .amount(faker.number().numberBetween(1134, 3321))
+                        .withdrawal(random.nextBoolean())
+                        .build();
 
                 wireRepository.save(wire);
             }
@@ -86,16 +86,16 @@ public class DataLoader {
 
             // CREATES TRADES
             for (int j = 0; j < tradesToSeed; j++) {
-                Trade trade = new Trade(
-                        faker.stock().nyseSymbol(),
-                        faker.number().numberBetween(13,56),
-                        faker.number().numberBetween(1000, 10000),
-                        faker.number().numberBetween(1000, 10000),
-                        LocalDateTime.now().minusYears(1),
-                        LocalDateTime.now().minusMonths(11),
-                        random.nextBoolean(),
-                        user
-                );
+                Trade trade = Trade.builder()
+                        .symbol(faker.stock().nyseSymbol())
+                        .quantity(faker.number().numberBetween(13,56))
+                        .openPriceInCent(faker.number().numberBetween(1000, 10000))
+                        .closePriceInCent(faker.number().numberBetween(1000, 10000))
+                        .openDateTime(LocalDateTime.now().minusYears(1))
+                        .closeDateTime(LocalDateTime.now().minusMonths(11))
+                        .open(random.nextBoolean())
+                        .user(user)
+                        .build();
 
                 tradeRepository.save(trade);
 

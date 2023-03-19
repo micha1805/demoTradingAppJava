@@ -1,12 +1,24 @@
 package com.trading.app.demo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.trading.app.demo.model.Profile;
+import com.trading.app.demo.model.User;
+import com.trading.app.demo.repository.ProfileRepository;
+import com.trading.app.demo.service.ProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/profile")
 public class ProfileController {
+
+    private final ProfileService profileService;
+
+
+    // Autowired constructor :
+    @Autowired
+    public ProfileController(ProfileService profileService){
+        this.profileService = profileService;
+    }
 
 
 
@@ -18,7 +30,17 @@ public class ProfileController {
     // It does NOT WORK it I got to "/api/v1/profile/" wih a slash at the end !!!
     // To map it like so I would have to write the annotation that way : @GetMapping("/")
     @GetMapping
-    public String getProfile(){
-        return "GET profile";
+    public Profile getProfile(){
+
+        Long userId = 1L; // should get that from the user id from the request's body
+        return profileService.findByUserId(userId);
     }
+
+    // jut checking how to read the request's body :
+    @GetMapping(path = "/test")
+    public String test(@RequestBody String requestBody){
+        System.out.println(requestBody);
+        return "hello !";
+    }
+
 }
