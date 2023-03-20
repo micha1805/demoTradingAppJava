@@ -10,6 +10,9 @@ For every other endpoint you'll need an `Authorization` header in your request, 
 Authorization: Bearer MY.JWT.TOKEN
 ```
 
+So in the following table each secured endpoint must have this header to work. 
+
+This is a demo project, a lot of things need to be improved (pagination for index endpoints, etc.)
 
 ## Endpoints API
 
@@ -44,7 +47,7 @@ Request:
 Response :
 ```json
 {
-	"token": JWT_TOKEN
+	"token": "JWT_TOKEN"
 }
 ```
 ### POST /api/v1/auth/signup
@@ -90,8 +93,33 @@ Response : 200
 Request:
 ```json
 {
+  "user_id": "1234"
+}
+```
+
+Response :
+```json
+{
+	"current_balance_in_cent": 12345
+}
+``` 
+
+
+### GET /api/v1/profile
+
+Request :
+
+```json
+{
+  "user_id": "1234"
+}
+```
+
+Response :
+
+```json
+{
   "email": "john@wayne.com",
-  "password" : "123456",
   "first_name": "John",
   "last_name": "Wayne",
   "address": "Far in the West",
@@ -99,9 +127,64 @@ Request:
 }
 ```
 
-Response :
+
+### POST /api/v1/wire
+
+Request : 
+
 ```json
 {
-	"token": "JWT_TOKEN"
+  "amount_in_cent": 12345,
+  "withdrawal" : false
 }
-``` 
+```
+Response : 201
+
+### GET /api/v1/trades/index
+
+Request :
+
+```json
+{
+  "user_id": "1234"
+}
+```
+
+Response : 
+
+```json
+{
+  "trades": [
+    {
+      "id": 1,
+      "close_date_time": "2022-04-19T22:18:19.650972",
+      "close_price_in_cent": 8004,
+      "open": false,
+      "open_date_time": "2022-03-19T22:18:19.650787",
+      "open_price_in_cent": 1318,
+      "quantity": 17.0,
+      "symbol": "TDW"
+    },
+    {
+      "id": 2,
+      "close_date_time": "2022-04-19T22:18:19.656258",
+      "close_price_in_cent": 6061,
+      "open": true,
+      "open_date_time": "2022-03-19T22:18:19.656244",
+      "open_price_in_cent": 5880,
+      "quantity": 13.0,
+      "symbol": "ARNC"
+    },
+    {
+      "id": 3,
+      "close_date_time": "2022-04-19T22:18:19.658076",
+      "close_price_in_cent": 8978,
+      "open": false,
+      "open_date_time": "2022-03-19T22:18:19.658067",
+      "open_price_in_cent": 7254,
+      "quantity": 44.0,
+      "symbol": "UHS"
+    }
+  ]
+}
+```
