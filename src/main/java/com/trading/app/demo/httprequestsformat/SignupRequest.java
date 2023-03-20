@@ -9,5 +9,5 @@ public class SignupRequest {
     private String first_name; // naming convention to fit JSON
     private String last_name;  // idem
     private String address;
-    private String phone;
+    private String phone_number;//idem
 }

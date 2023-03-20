@@ -37,7 +37,7 @@ public class AuthenticationService {
                 .firstName(request.getFirst_name())
                 .lastName(request.getLast_name())
                 .address(request.getAddress())
-                .phoneNumber(request.getPhone())
+                .phoneNumber(request.getPhone_number())
                 .build();
 
         profileRepository.save(profile);
@@ -52,14 +52,6 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse login(LoginRequest request) {
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("==========Authentication Service Before Auth============");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -68,19 +60,7 @@ public class AuthenticationService {
                     )
             );
         } catch (Exception e) {
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("====================Exception============================");
             System.out.println(e.getMessage());
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-            System.out.println("========================================================");
-
-
         }
 
 

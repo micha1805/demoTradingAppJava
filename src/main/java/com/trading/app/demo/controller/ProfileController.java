@@ -1,5 +1,6 @@
 package com.trading.app.demo.controller;
 
+import com.trading.app.demo.httpresponsesformat.FullProfileResponse;
 import com.trading.app.demo.model.Profile;
 import com.trading.app.demo.model.User;
 import com.trading.app.demo.service.JwtService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping(path = "api/v1/profile")
 @RequiredArgsConstructor
@@ -18,30 +21,48 @@ public class ProfileController {
 
     private final ProfileService profileService;
     private final UserService userService;
-    private final JwtService jwtService;
 
-    // LIST OF ENDPOINTS for the profile namespace :
-    // GET api/v1/profile
-    // get the all the details of the user and profile
-
-    // Rem : Like so the url is : "/api/v1/profile"
-    // It does NOT WORK it I got to "/api/v1/profile/" wih a slash at the end !!!
-    // To map it like so I would have to write the annotation that way : @GetMapping("/")
     @GetMapping
-    public Profile getProfile(){
+    public ResponseEntity<FullProfileResponse> getProfile( @RequestHeader("Authorization") String authHeader){
+//
+//        // should take care of the case when no user is found:
+        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
+        User user;
+        FullProfileResponse response;
+        if(currentUser.isPresent()){
+            user = currentUser.get();
+        }else{
+            throw new IllegalArgumentException("User not found");
+        }
+        System.out.println("||||||||||||||||||||||||||||||||");
+        System.out.println("User = " + user);
 
-        Long userId = 123L; // should get that from the user id from the request's body
-        return profileService.findByUserId(userId);
+        Profile profile = profileService.findByUserId(user.getId());
+
+        System.out.println("||||||||||||||||||||||||||||||||");
+        System.out.println("Profile = " + profile);
+
+        // building the response object:
+        response = FullProfileResponse.builder()
+                .email(user.getEmail())
+                .firstName(profile.getFirstName())
+                .lastName(profile.getLastName())
+                .address(profile.getAddress())
+                .phoneNumber(profile.getPhoneNumber())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
-    // jut checking how to read the request's body :
+    // A method to test stuff :
     @GetMapping(path = "/test")
     public ResponseEntity<String> test(@RequestBody String requestBody, @RequestHeader("Authorization") String authHeader) {
-        System.out.println(requestBody);
-        System.out.println(authHeader);
+        // I must find a way to do an equivalent of rails before_action to grab the user
+        // before each method that need it. Java filter ?
         Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
         System.out.println(currentUser.toString());
-        return ResponseEntity.ok( authHeader);
+        System.out.println(currentUser.get().getId());
+        return ResponseEntity.ok( authHeader + requestBody);
     }
 
 }
