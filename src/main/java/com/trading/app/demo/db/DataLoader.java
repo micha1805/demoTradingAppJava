@@ -7,7 +7,6 @@ import com.trading.app.demo.repository.TradeRepository;
 import com.trading.app.demo.repository.UserRepository;
 import com.trading.app.demo.repository.WireRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
