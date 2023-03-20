@@ -356,3 +356,8 @@ Only the Authorisation header
   "open_Pnl_in_cent" : 12345
 }
 ```
+
+## Testing
+
+Testing (and regular use actually) is now only done using a Postman collection of all the endpoints, tested one by one.
+Next step is to implement proper testing with JUnit.
