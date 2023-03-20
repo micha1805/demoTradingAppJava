@@ -319,15 +319,14 @@ Either a 201 if enough money to succeed either a 402 for payment required.
 
 ### PATCH /api/v1/trade/closeTrade/:id
 
-Request :
 
-```json
-{
-  "trade_id": 1234
-}
-```
+**Request:**
 
-Response : 200
+Only the Authorisation header
+
+**Response**
+
+200
 
 
 ### GET /api/v1/trade/closedPNL	
@@ -340,7 +339,7 @@ Only the Authorisation header
 
 ```json
 {
-  "closed_PNL_in_cent" : 12345
+  "closed_Pnl_in_cent" : 12345
 }
 ```
 
@@ -354,6 +353,6 @@ Only the Authorisation header
 
 ```json
 {
-  "open_PNL_in_cent" : 12345
+  "open_Pnl_in_cent" : 12345
 }
 ```
