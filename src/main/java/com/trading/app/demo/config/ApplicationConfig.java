@@ -18,7 +18,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService(){
