@@ -2,25 +2,23 @@ package com.trading.app.demo.controller;
 
 import com.trading.app.demo.model.Profile;
 import com.trading.app.demo.model.User;
-import com.trading.app.demo.repository.ProfileRepository;
+import com.trading.app.demo.service.JwtService;
 import com.trading.app.demo.service.ProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.trading.app.demo.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/profile")
+@RequiredArgsConstructor
 public class ProfileController {
 
     private final ProfileService profileService;
-
-
-    // Autowired constructor :
-    @Autowired
-    public ProfileController(ProfileService profileService){
-        this.profileService = profileService;
-    }
-
-
+    private final UserService userService;
+    private final JwtService jwtService;
 
     // LIST OF ENDPOINTS for the profile namespace :
     // GET api/v1/profile
@@ -38,9 +36,12 @@ public class ProfileController {
 
     // jut checking how to read the request's body :
     @GetMapping(path = "/test")
-    public String test(@RequestBody String requestBody){
+    public ResponseEntity<String> test(@RequestBody String requestBody, @RequestHeader("Authorization") String authHeader) {
         System.out.println(requestBody);
-        return "hello !";
+        System.out.println(authHeader);
+        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
+        System.out.println(currentUser.toString());
+        return ResponseEntity.ok( authHeader);
     }
 
 }

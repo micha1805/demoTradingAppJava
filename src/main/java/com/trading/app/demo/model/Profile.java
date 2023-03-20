@@ -2,10 +2,7 @@ package com.trading.app.demo.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -42,5 +39,8 @@ public class Profile {
                     name = "user_id_fk"
             )
     )
+    // IMPORTANT : if absent infinite loop between user and profile
+    // while calling toString
+    @ToString.Exclude
     private User user;
 }
