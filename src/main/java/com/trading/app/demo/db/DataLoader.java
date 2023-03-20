@@ -1,36 +1,28 @@
 package com.trading.app.demo.db;
 
 import com.github.javafaker.Faker;
-import com.trading.app.demo.model.Profile;
-import com.trading.app.demo.model.Trade;
-import com.trading.app.demo.model.User;
-import com.trading.app.demo.model.Wire;
+import com.trading.app.demo.model.*;
 import com.trading.app.demo.repository.ProfileRepository;
 import com.trading.app.demo.repository.TradeRepository;
 import com.trading.app.demo.repository.UserRepository;
 import com.trading.app.demo.repository.WireRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Random;
 
 @Component
+@AllArgsConstructor
 public class DataLoader {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final WireRepository wireRepository;
     private final TradeRepository tradeRepository;
-
-    public DataLoader(UserRepository userRepository,
-                      ProfileRepository profileRepository,
-                      WireRepository wireRepository,
-                      TradeRepository tradeRepository) {
-        this.userRepository = userRepository;
-        this.profileRepository = profileRepository;
-        this.wireRepository = wireRepository;
-        this.tradeRepository = tradeRepository;
-    }
 
     public void seedDb() {
         // values needed
@@ -48,7 +40,8 @@ public class DataLoader {
             // CREATE A USER using Lombok builder
             User user = User.builder()
                     .email(faker.internet().emailAddress())
-                    .password("123456")
+                    .role(Role.ADMIN)
+                    .password(passwordEncoder.encode("123456"))
                     .build();
 
             try {
