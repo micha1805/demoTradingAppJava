@@ -36,11 +36,11 @@ public class TradeController {
     }
 
 
-    @PostMapping(path = "/closeTrade/{tradeId}")
-    public String createTrade(@PathVariable String tradeId){
+    @PatchMapping(path = "/closeTrade/{tradeId}")
+    public String closeTrade(@PathVariable String tradeId){
         // validate tradeID is an id
         // check balance in the validation
-        return "POST a trade of ID = " + tradeId;
+        return "PATCH a trade of ID = " + tradeId;
     }
 
 

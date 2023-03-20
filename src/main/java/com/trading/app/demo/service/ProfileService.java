@@ -22,18 +22,8 @@ public class ProfileService {
 
 
     public Profile findByUserId(Long userId) {
-
-        // There must be a better way :
-        try {
-
-            return profileRepository.findByUserId(userId);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null; // expecially here
-        }
-//                .orElseThrow(() -> new IllegalStateException(
-//                        "Profile with Id=" + userId + " does not exist"
-//                ))
+        return profileRepository.findByUserId(userId)
+                    .orElseThrow(() -> new IllegalStateException("Profile with Id=" + userId + " does not exist" ));
     }
 
 }

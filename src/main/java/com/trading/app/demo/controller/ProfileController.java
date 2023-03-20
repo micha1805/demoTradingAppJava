@@ -32,7 +32,7 @@ public class ProfileController {
     @GetMapping
     public Profile getProfile(){
 
-        Long userId = 1L; // should get that from the user id from the request's body
+        Long userId = 123L; // should get that from the user id from the request's body
         return profileService.findByUserId(userId);
     }
 
