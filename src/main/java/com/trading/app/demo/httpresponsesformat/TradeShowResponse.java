@@ -1,5 +1,6 @@
 package com.trading.app.demo.httpresponsesformat;
 
+import com.trading.app.demo.model.Trade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationResponse {
-    private String token;
+public class TradeShowResponse {
+    private Trade trade;
 }
