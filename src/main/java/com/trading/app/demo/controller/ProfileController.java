@@ -3,7 +3,6 @@ package com.trading.app.demo.controller;
 import com.trading.app.demo.httpresponsesformat.FullProfileResponse;
 import com.trading.app.demo.model.Profile;
 import com.trading.app.demo.model.User;
-import com.trading.app.demo.service.JwtService;
 import com.trading.app.demo.service.ProfileService;
 import com.trading.app.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping(path = "api/v1/profile")
@@ -24,8 +21,8 @@ public class ProfileController {
 
     @GetMapping
     public ResponseEntity<FullProfileResponse> getProfile( @RequestHeader("Authorization") String authHeader){
-//
-//        // should take care of the case when no user is found:
+
+      // should take care of the case when no user is found:
         Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
         User user;
         FullProfileResponse response;
@@ -34,13 +31,7 @@ public class ProfileController {
         }else{
             throw new IllegalArgumentException("User not found");
         }
-        System.out.println("||||||||||||||||||||||||||||||||");
-        System.out.println("User = " + user);
-
         Profile profile = profileService.findByUserId(user.getId());
-
-        System.out.println("||||||||||||||||||||||||||||||||");
-        System.out.println("Profile = " + profile);
 
         // building the response object:
         response = FullProfileResponse.builder()

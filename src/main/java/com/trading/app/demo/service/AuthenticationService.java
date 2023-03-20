@@ -63,17 +63,6 @@ public class AuthenticationService {
             System.out.println(e.getMessage());
         }
 
-
-
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("==========Authentication Service After  Auth============");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-        System.out.println("========================================================");
-
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
 
