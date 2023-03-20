@@ -2,7 +2,7 @@
 
 A little project of a REST API in Spring.
 
-It uses authentication via JWT, so each endpoint is protected except `login` and `signup` obviously that will respond with a JWT token.
+It uses authentication via JWT, each endpoint is protected except `login` and `signup` that will respond with a JWT token.
 
 For every other endpoint you'll need an `Authorization` header in your request, like so :
 
