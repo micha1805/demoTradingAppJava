@@ -64,7 +64,7 @@ Request:
 Response :
 ```json
 {
-	"token": JWT_TOKEN
+	"token": "JWT_TOKEN"
 }
 ``` 
 
@@ -102,6 +102,6 @@ Request:
 Response :
 ```json
 {
-	"token": JWT_TOKEN
+	"token": "JWT_TOKEN"
 }
 ``` 
