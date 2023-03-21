@@ -1,5 +1,6 @@
 package com.trading.app.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
@@ -35,6 +36,7 @@ public class Trade {
     private LocalDateTime closeDateTime;
     private boolean open;
 
+    @JsonIgnore
     public int getClosedPNL() throws IllegalArgumentException{
         if(open) throw new IllegalArgumentException("trade still open, cannot calculate closed PnL");
         return closePriceInCent - openPriceInCent;
@@ -45,6 +47,7 @@ public class Trade {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @ToString.Exclude // prevent infinite loops
+    @JsonIgnore
     private User user;
 
 }
