@@ -23,14 +23,8 @@ public class ProfileController {
     public ResponseEntity<FullProfileResponse> getProfile( @RequestHeader("Authorization") String authHeader){
 
       // should take care of the case when no user is found:
-        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
-        User user;
+        User user = userService.getUserFromHeader(authHeader);
         FullProfileResponse response;
-        if(currentUser.isPresent()){
-            user = currentUser.get();
-        }else{
-            throw new IllegalArgumentException("User not found");
-        }
         Profile profile = profileService.findByUserId(user.getId());
 
         // building the response object:
@@ -50,9 +44,9 @@ public class ProfileController {
     public ResponseEntity<String> test(@RequestBody String requestBody, @RequestHeader("Authorization") String authHeader) {
         // I must find a way to do an equivalent of rails before_action to grab the user
         // before each method that need it. Java filter ?
-        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
+        User currentUser = userService.getUserFromHeader(authHeader);
         System.out.println(currentUser.toString());
-        System.out.println(currentUser.get().getId());
+        System.out.println(currentUser.getId());
         return ResponseEntity.ok( authHeader + requestBody);
     }
 

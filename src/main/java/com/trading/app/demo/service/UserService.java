@@ -30,11 +30,6 @@ public class UserService {
                 ));
     }
 
-    public Optional<User> getUserByAuthHeader(String authHeader){
-
-        return userRepository.findByEmail(jwtService.extractUsername(authHeader.substring(7)));
-    }
-
     public void update(User user) {
         userRepository.save(user);
     }
@@ -65,4 +60,20 @@ public class UserService {
         currentBalance = cash + closedProfitLoss;
         return currentBalance;
     }
+
+    public User getUserFromHeader(String authHeader){
+        Optional<User> currentUser = userRepository
+                .findByEmail(jwtService.extractUsername(authHeader.substring(7)));
+
+        User user;
+
+        if(currentUser.isPresent()){
+            user = currentUser.get();
+            return user;
+        }else{
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+
 }

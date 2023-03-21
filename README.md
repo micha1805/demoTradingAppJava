@@ -133,7 +133,7 @@ Request :
 ```
 Response : 201
 
-### GET /api/v1/trades/index
+### GET /api/v1/trade/index
 
 **Request:**
 
