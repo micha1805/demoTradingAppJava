@@ -45,6 +45,7 @@ public class DataLoader {
 
             try {
                 userRepository.save(user);
+                System.out.println("User " + i + " created");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -64,6 +65,8 @@ public class DataLoader {
             profileRepository.save(profile);
             profile.setUser(user);
             profileRepository.save(profile);
+            System.out.println("Profile " + i + " created");
+
 
             // CREATE WIRES
             for (int j = 0; j < wiresToSeed; j++) {
@@ -74,6 +77,7 @@ public class DataLoader {
 
                 wireRepository.save(wire);
             }
+            System.out.println("User " + i + " wires created");
 
 
             // CREATES TRADES
@@ -92,6 +96,8 @@ public class DataLoader {
                 tradeRepository.save(trade);
 
             }
+            System.out.println("User " + i + " trades created");
+
         }
     }
 }
