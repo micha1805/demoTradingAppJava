@@ -31,4 +31,7 @@ public class UserService {
         return userRepository.findByEmail(jwtService.extractUsername(authHeader.substring(7)));
     }
 
+    public void update(User user) {
+        userRepository.save(user);
+    }
 }
