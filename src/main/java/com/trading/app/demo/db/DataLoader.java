@@ -122,6 +122,7 @@ public class DataLoader {
             Wire wire = Wire.builder()
                     .amount(faker.number().numberBetween(1134, 3321))
                     .withdrawal(random.nextBoolean())
+                    .user(user)
                     .build();
 
             wireRepository.save(wire);
