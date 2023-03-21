@@ -1,7 +1,9 @@
 package com.trading.app.demo.service;
 
 import com.trading.app.demo.httpresponsesformat.CurrentBalanceResponse;
+import com.trading.app.demo.model.Trade;
 import com.trading.app.demo.model.User;
+import com.trading.app.demo.model.Wire;
 import com.trading.app.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,27 @@ public class UserService {
     public Integer getCurrentBalance(User user){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println(user);
-        Integer currentBalance = 123144;
+
+        int currentBalance = 0;
+
+        int depositsTotal = user.getWires().stream()
+                .filter(w -> !w.isWithdrawal())
+                .mapToInt(Wire::getAmount)
+                .sum();
+        int withdrawalTotal = user.getWires().stream()
+                .filter(w -> w.isWithdrawal())
+                .mapToInt(Wire::getAmount)
+                .sum();
+        int cash = depositsTotal - withdrawalTotal;
+
+        int closedProfitLoss = user.getTrades()
+                .stream().filter(t -> !t.isOpen())
+                .mapToInt(Trade::getClosedPNL)
+                .sum();
+        // I could add openPNL but for the sake of simplicity I wont.
+        // if I wanted I would have to grab current symbol price for each trade
+
+        currentBalance = cash + closedProfitLoss;
         return currentBalance;
     }
 }

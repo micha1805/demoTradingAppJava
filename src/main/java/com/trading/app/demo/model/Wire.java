@@ -2,10 +2,7 @@ package com.trading.app.demo.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -27,12 +24,13 @@ public class Wire {
             generator = "wire_sequence_generator"
     )
     private long id;
-    private long amount;
+    private int amount;
     private boolean withdrawal;
 
     // RELATIONSHIPS
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private User user;
 
 }

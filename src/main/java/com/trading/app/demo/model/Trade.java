@@ -1,10 +1,8 @@
 package com.trading.app.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.Table;
 
 import java.time.LocalDateTime;
@@ -37,10 +35,16 @@ public class Trade {
     private LocalDateTime closeDateTime;
     private boolean open;
 
+    public int getClosedPNL() throws IllegalArgumentException{
+        if(open) throw new IllegalArgumentException("trade still open, cannot calculate closed PnL");
+        return closePriceInCent - openPriceInCent;
+    }
+
 
     // RELATIONSHIPS
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude // prevent infinite loops
     private User user;
 
 }
