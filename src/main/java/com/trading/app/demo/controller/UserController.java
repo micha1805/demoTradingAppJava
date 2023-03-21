@@ -1,6 +1,7 @@
 package com.trading.app.demo.controller;
 
 import com.trading.app.demo.httprequestsformat.UserUpdateRequest;
+import com.trading.app.demo.httpresponsesformat.CurrentBalanceResponse;
 import com.trading.app.demo.httpresponsesformat.FullProfileResponse;
 import com.trading.app.demo.model.Profile;
 import com.trading.app.demo.model.User;
@@ -50,15 +51,7 @@ public class UserController {
         //  - if no profile found
         //  - if body's request is partial information (for now it is the full data)
 
-        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
-        User user;
-
-        if(currentUser.isPresent()){
-            user = currentUser.get();
-        }else{
-            throw new IllegalArgumentException("User not found");
-        }
-
+        User user = getUser(authHeader);
 
         profileService.updateFullProfile(user.getId(), request);
 
@@ -67,17 +60,28 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userService.update(user);
 
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println(user);
-        System.out.println(user.getProfile());
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||");
     }
 
-    @GetMapping(path = "currentBalance")
-    public String getCurrentBalance(){
-        return "current balance";
+    @GetMapping(path = "/currentBalance")
+    public ResponseEntity<CurrentBalanceResponse> currentBalance(@RequestHeader("Authorization") String authHeader) {
+
+        User user = getUser(authHeader);
+        CurrentBalanceResponse response = CurrentBalanceResponse.builder()
+                .currentBalanceInCent(userService.getCurrentBalance(user))
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    private User getUser(String authHeader){
+        Optional<User> currentUser = userService.getUserByAuthHeader(authHeader);
+        User user;
+
+        if(currentUser.isPresent()){
+            user = currentUser.get();
+            return user;
+        }else{
+            throw new IllegalArgumentException("User not found");
+        }
     }
 }
 

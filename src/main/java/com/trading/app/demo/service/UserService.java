@@ -1,9 +1,11 @@
 package com.trading.app.demo.service;
 
+import com.trading.app.demo.httpresponsesformat.CurrentBalanceResponse;
 import com.trading.app.demo.model.User;
 import com.trading.app.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +35,12 @@ public class UserService {
 
     public void update(User user) {
         userRepository.save(user);
+    }
+
+    public Integer getCurrentBalance(User user){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println(user);
+        Integer currentBalance = 123144;
+        return currentBalance;
     }
 }
