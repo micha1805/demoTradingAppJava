@@ -23,9 +23,9 @@ public class DemoApplication {
 		// Get the dataLoader
 		DataLoader dataLoader = context.getBean(DataLoader.class);
 
-		// run the seed if env var SEED != true:
-		if("true".equals(getEnv("SEED"))){
-			dataLoader.seedDb();
-		}
+//		// run the seed if env var SEED != true:
+//		if("true".equals(getEnv("SEED"))){
+//			dataLoader.seedDb();
+//		}
 	}
 }
