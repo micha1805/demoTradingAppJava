@@ -359,5 +359,22 @@ Only the Authorisation header
 
 ## Testing
 
-Testing (and regular use actually) is now only done using a Postman collection of all the endpoints, tested one by one.
-Next step is to implement proper testing with JUnit.
+Testing is currently only done using Postman (with scripting to automatically grab the token after login/signup).
+
+
+## TODO next
+
+
+- PI Doc with Swagger
+- Find out how to edit CORS
+- Testing with JUnit
+- Env variable (jwt secret key)
+- maybe refactor the files structure for http req/resp
+- refactor ugly lines of code (raw SQL query for balance ? check services methods, saving twice not good etc.)
+- pagination for indexes endpoints
+- more realistic wires ?
+- dockerize the app
+- add `created_at` and `updated_at` rows for each model/table.
+- Push in production
+- add some CI/CD
+- etc.
