@@ -120,8 +120,7 @@ public class DataLoader {
         // CREATE WIRES
         for (int j = 0; j < wiresNumber; j++) {
             Wire wire = Wire.builder()
-                    .amount(faker.number().numberBetween(1134, 3321))
-                    .withdrawal(random.nextBoolean())
+                    .amount(faker.number().numberBetween(-1234, 1234))
                     .user(user)
                     .build();
 

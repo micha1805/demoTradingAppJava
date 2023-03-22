@@ -25,7 +25,6 @@ public class Wire {
     )
     private long id;
     private int amount;
-    private boolean withdrawal;
 
     // RELATIONSHIPS
     @ManyToOne

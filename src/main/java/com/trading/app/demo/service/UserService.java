@@ -39,11 +39,11 @@ public class UserService {
         int currentBalance = 0;
 
         int depositsTotal = user.getWires().stream()
-                .filter(w -> !w.isWithdrawal())
+                .filter(w -> w.getAmount() > 0)
                 .mapToInt(Wire::getAmount)
                 .sum();
         int withdrawalTotal = user.getWires().stream()
-                .filter(w -> w.isWithdrawal())
+                .filter(w -> w.getAmount() <=0 )
                 .mapToInt(Wire::getAmount)
                 .sum();
         int cash = depositsTotal - withdrawalTotal;

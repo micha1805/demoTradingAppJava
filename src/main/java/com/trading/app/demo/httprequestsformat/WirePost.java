@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class WirePost {
-    private Integer amount_In_Cent;
+    private Integer amount_in_cent;
 }
