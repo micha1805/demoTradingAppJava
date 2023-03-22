@@ -35,8 +35,6 @@ public class UserService {
     }
 
     public Integer getCurrentBalance(User user){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println(user);
 
         int currentBalance = 0;
 

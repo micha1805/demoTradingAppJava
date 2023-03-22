@@ -2,22 +2,15 @@ package com.trading.app.demo.controller;
 
 import com.trading.app.demo.httprequestsformat.UserUpdateRequest;
 import com.trading.app.demo.httpresponsesformat.CurrentBalanceResponse;
-import com.trading.app.demo.httpresponsesformat.FullProfileResponse;
-import com.trading.app.demo.model.Profile;
 import com.trading.app.demo.model.User;
 import com.trading.app.demo.service.ProfileService;
 import com.trading.app.demo.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
