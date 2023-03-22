@@ -369,6 +369,7 @@ In no particular order :
 - Doc with Swagger
 - Find out how to manage CORS config
 - Testing with JUnit
+- Do the seed once, then just connect to db.
 - Env variable (jwt secret key)
 - maybe refactor the files structure for http req/resp
 - refactor ugly lines of code (raw SQL query for balance ? check services methods, saving twice not good etc.)

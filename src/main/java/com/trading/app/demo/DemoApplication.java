@@ -27,5 +27,9 @@ public class DemoApplication {
 //		if("true".equals(getEnv("SEED"))){
 //			dataLoader.seedDb();
 //		}
+		dataLoader.seedDb();
+
 	}
+
+
 }
