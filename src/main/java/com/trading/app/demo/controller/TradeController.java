@@ -1,5 +1,6 @@
 package com.trading.app.demo.controller;
 
+import com.trading.app.demo.httpresponsesformat.OpenTradesResponse;
 import com.trading.app.demo.httpresponsesformat.TradeIndexResponse;
 import com.trading.app.demo.httpresponsesformat.TradeShowResponse;
 import com.trading.app.demo.model.Trade;
@@ -73,13 +74,21 @@ public class TradeController {
     }
 
     @GetMapping(path = "/index/open")
-    public String getAllOpenTrades(){
-        return "fetch my open trades";
+    public ResponseEntity<OpenTradesResponse> getAllOpenTrades(@RequestHeader("Authorization") String authHeader){
+        User user = userService.getUserFromHeader(authHeader);
+
+        List<Trade> trades = tradeRepository.getOpenTrades(user.getId());
+
+        return ResponseEntity.ok(OpenTradesResponse.builder().trades(trades).build());
     }
 
     @GetMapping(path = "/index/closed")
-    public String getAllClosedTrades(){
-        return "fetch my closed trades";
+    public ResponseEntity<OpenTradesResponse> getAllClosedTrades(@RequestHeader("Authorization") String authHeader){
+        User user = userService.getUserFromHeader(authHeader);
+
+        List<Trade> trades = tradeRepository.getClosedTrades(user.getId());
+
+        return ResponseEntity.ok(OpenTradesResponse.builder().trades(trades).build());
     }
 
     @PostMapping(path = "/openTrade")
