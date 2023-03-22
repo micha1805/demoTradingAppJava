@@ -364,9 +364,10 @@ Testing is currently only done using Postman (with scripting to automatically gr
 
 ## TODO next
 
+In no particular order :
 
-- PI Doc with Swagger
-- Find out how to edit CORS
+- Doc with Swagger
+- Find out how to manage CORS config
 - Testing with JUnit
 - Env variable (jwt secret key)
 - maybe refactor the files structure for http req/resp
@@ -376,5 +377,5 @@ Testing is currently only done using Postman (with scripting to automatically gr
 - dockerize the app
 - add `created_at` and `updated_at` rows for each model/table.
 - Push in production
-- add some CI/CD
+- add some CI/CD (GitHub actions)
 - etc.
