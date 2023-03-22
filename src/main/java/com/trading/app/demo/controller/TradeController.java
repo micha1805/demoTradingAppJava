@@ -1,15 +1,21 @@
 package com.trading.app.demo.controller;
 
 import com.trading.app.demo.httpresponsesformat.TradeIndexResponse;
+import com.trading.app.demo.httpresponsesformat.TradeShowResponse;
 import com.trading.app.demo.model.Trade;
+import com.trading.app.demo.model.User;
 import com.trading.app.demo.repository.TradeRepository;
+import com.trading.app.demo.repository.UserRepository;
 import com.trading.app.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +24,7 @@ public class TradeController {
 
     private final UserService userService;
     private final TradeRepository tradeRepository;
+    private final UserRepository userRepository;
     // insert user Id in request
     @GetMapping(path = "/index")
     public ResponseEntity<TradeIndexResponse> tradeIndex(@RequestHeader("Authorization") String authHeader){
@@ -50,9 +57,19 @@ public class TradeController {
 
     // check that user is authorised to check that trade
     @GetMapping(path = "/{tradeId}")
-    public String getTrade(@PathVariable String tradeId){
-        // validate tradeId is an Id
-        return "get trade of Id = " + tradeId;
+    public ResponseEntity<TradeShowResponse> getTrade(@RequestHeader("Authorization") String authHeader, @PathVariable String tradeId){
+        User user = userService.getUserFromHeader(authHeader);
+        Long tradeIdLong = Long.parseLong(tradeId);
+        Trade trade = tradeRepository.findById(tradeIdLong)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Trade of id " + tradeIdLong + "not found"
+                ));
+        // validate tradeId if currentUser == trade.user
+        if(trade.getUser().getId().equals(user.getId())){
+            return ResponseEntity.ok(TradeShowResponse.builder().trade(trade).build());
+        }else{
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @GetMapping(path = "/index/open")
