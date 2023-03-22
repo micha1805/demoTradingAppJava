@@ -16,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -108,10 +108,19 @@ public class TradeController {
 
 
     @PatchMapping(path = "/closeTrade/{tradeId}")
-    public String closeTrade(@PathVariable String tradeId){
-        // validate tradeID is an id
-        // check balance in the validation
-        return "PATCH a trade of ID = " + tradeId;
+    public ResponseEntity<String> closeTrade(@PathVariable String tradeId, @RequestHeader("Authorization") String authHeader){
+        // validate trade belongs to user
+        User user = userService.getUserFromHeader(authHeader);
+
+        Trade trade = tradeRepository.findById(Long.parseLong(tradeId))
+                .orElseThrow(() -> new IllegalArgumentException("Trade not found"));
+        trade.setCloseDateTime(LocalDateTime.now());
+        trade.setOpen(false);
+        // following times 100 because price in cent
+        trade.setClosePriceInCent(tradeService.getStockPriceNow(trade.getSymbol())*100);
+        tradeRepository.save(trade);
+
+        return ResponseEntity.ok("Trade closed successfully");
     }
 
 

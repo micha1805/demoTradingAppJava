@@ -32,6 +32,6 @@ public class WireController {
                 .build();
         wireRepository.save(newWire);
 
-        return ResponseEntity.ok("wire created succesfully : " + newWire);
+        return ResponseEntity.ok("wire created succesfully : ");
     }
 }

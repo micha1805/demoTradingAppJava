@@ -47,14 +47,12 @@ public class UserService {
                 .mapToInt(Wire::getAmount)
                 .sum();
         int cash = depositsTotal - withdrawalTotal;
-
         int closedProfitLoss = user.getTrades()
                 .stream().filter(t -> !t.isOpen())
                 .mapToInt(Trade::getClosedPNL)
                 .sum();
         // I could add openPNL but for the sake of simplicity I wont.
         // if I wanted I would have to grab current symbol price for each trade
-
         currentBalance = cash + closedProfitLoss;
         return currentBalance;
     }
