@@ -8,6 +8,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+
+import static ch.qos.logback.core.util.OptionHelper.getEnv;
+
 
 @SpringBootApplication
 @RestController
@@ -18,7 +22,10 @@ public class DemoApplication {
 
 		// Get the dataLoader
 		DataLoader dataLoader = context.getBean(DataLoader.class);
-		// run the seed :
-		dataLoader.seedDb();
+
+		// run the seed if env var SEED != true:
+		if("true".equals(getEnv("SEED"))){
+			dataLoader.seedDb();
+		}
 	}
 }
