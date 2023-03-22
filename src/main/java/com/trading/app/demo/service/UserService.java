@@ -47,12 +47,13 @@ public class UserService {
                 .mapToInt(Wire::getAmount)
                 .sum();
         int cash = depositsTotal - withdrawalTotal;
-        int closedProfitLoss = user.getTrades()
-                .stream().filter(t -> !t.isOpen())
-                .mapToInt(Trade::getClosedPNL)
-                .sum();
+        int closedProfitLoss = getClosedPnl(user);
         // I could add openPNL but for the sake of simplicity I wont.
-        // if I wanted I would have to grab current symbol price for each trade
+        // if I wanted I would have to grab current symbol price for each trade (via openProfitLoss method)
+        //
+        // int openProfitLoss = getOpenPnl(user);
+        // currentBalance = cash + closedProfitLoss + openProfitLoss;
+
         currentBalance = cash + closedProfitLoss;
         return currentBalance;
     }
@@ -69,6 +70,20 @@ public class UserService {
         }else{
             throw new IllegalArgumentException("User not found");
         }
+    }
+
+    public Integer getClosedPnl(User user){
+        return user.getTrades()
+                .stream().filter(t -> !t.isOpen())
+                .mapToInt(Trade::getClosedPNL)
+                .sum();
+    }
+
+    public Integer getOpenPnl(User user){
+        return user.getTrades()
+                .stream().filter(t -> t.isOpen())
+                .mapToInt(Trade::getOpenPNL)
+                .sum();
     }
 
 

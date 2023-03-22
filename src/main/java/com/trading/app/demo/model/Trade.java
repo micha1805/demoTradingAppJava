@@ -1,6 +1,7 @@
 package com.trading.app.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.trading.app.demo.service.TradeService;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
@@ -42,6 +43,11 @@ public class Trade {
         return closePriceInCent - openPriceInCent;
     }
 
+    @JsonIgnore
+    public int getOpenPNL() throws IllegalArgumentException{
+        if(!open) throw new IllegalArgumentException("trade is closed, cannot calculate open PnL");
+        return TradeService.getStockPriceNow(this.getSymbol()) - openPriceInCent;
+    }
 
     // RELATIONSHIPS
     @ManyToOne

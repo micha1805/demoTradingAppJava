@@ -1,9 +1,7 @@
 package com.trading.app.demo.controller;
 
 import com.trading.app.demo.httprequestsformat.TradePost;
-import com.trading.app.demo.httpresponsesformat.OpenTradesResponse;
-import com.trading.app.demo.httpresponsesformat.TradeIndexResponse;
-import com.trading.app.demo.httpresponsesformat.TradeShowResponse;
+import com.trading.app.demo.httpresponsesformat.*;
 import com.trading.app.demo.model.Trade;
 import com.trading.app.demo.model.User;
 import com.trading.app.demo.repository.TradeRepository;
@@ -84,7 +82,7 @@ public class TradeController {
         Integer balance = userService.getCurrentBalance(user);
 
         // get stock current price
-        Integer stockPrice = tradeService.getStockPriceNow(newTrade.getSymbol());
+        Integer stockPrice = TradeService.getStockPriceNow(newTrade.getSymbol());
 
         // check balance in the validation
 
@@ -117,7 +115,7 @@ public class TradeController {
         trade.setCloseDateTime(LocalDateTime.now());
         trade.setOpen(false);
         // following times 100 because price in cent
-        trade.setClosePriceInCent(tradeService.getStockPriceNow(trade.getSymbol())*100);
+        trade.setClosePriceInCent(TradeService.getStockPriceNow(trade.getSymbol())*100);
         tradeRepository.save(trade);
 
         return ResponseEntity.ok("Trade closed successfully");
@@ -125,13 +123,19 @@ public class TradeController {
 
 
     @GetMapping(path = "/closedPNL")
-    public String closedPNL(){
-        return "closed PNL";
+    public ResponseEntity<ClosedPNLResponse> closedPNL(@RequestHeader("Authorization") String authHeader){
+        User user = userService.getUserFromHeader(authHeader);
+        Integer closedPNL = userService.getClosedPnl(user);
+
+        return ResponseEntity.ok(ClosedPNLResponse.builder().closedPnlInCent(closedPNL*100).build());
     }
 
     @GetMapping(path = "/openPNL")
-    public String openPNL(){
-        return "open PNL";
+    public ResponseEntity<OpenPNLResponse> openPNL(@RequestHeader("Authorization") String authHeader){
+        User user = userService.getUserFromHeader(authHeader);
+        Integer openPNL = userService.getOpenPnl(user);
+
+        return ResponseEntity.ok(OpenPNLResponse.builder().openPnlInCent(openPNL*100).build());
     }
 
 
