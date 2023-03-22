@@ -26,8 +26,6 @@ public class WireController {
     public void createWire(@RequestBody WirePost request, @RequestHeader("Authorization") String authHeader){
 
         User user = userService.getUserFromHeader(authHeader);
-        System.out.println(user);
-        System.out.println(request.getAmount_in_cent().getClass());
         Wire newWire = Wire.builder()
                 .amount(request.getAmount_in_cent())
                 .build();
