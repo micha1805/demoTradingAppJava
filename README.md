@@ -369,6 +369,7 @@ In no particular order :
 - Doc with Swagger
 - Find out how to manage CORS config
 - Testing with JUnit
+- Real Stock data
 - Do the seed once, then just connect to db.
 - Env variable (jwt secret key)
 - maybe refactor the files structure for http req/resp
