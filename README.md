@@ -359,7 +359,7 @@ Only the Authorisation header
 
 ## Testing
 
-Testing is currently only done using Postman (with scripting to automatically grab the token after login/signup).
+Testing is currently only done using Postman, so no unit tests only integration testing, with scripting to automatically grab the token after login/signup.
 
 
 ## TODO next
