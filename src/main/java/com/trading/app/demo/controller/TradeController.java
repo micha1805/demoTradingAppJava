@@ -32,23 +32,8 @@ public class TradeController {
     @GetMapping(path = "/index")
     public ResponseEntity<TradeIndexResponse> tradeIndex(@RequestHeader("Authorization") String authHeader){
 
-
-        // test list :
-        List<Trade> trades = new ArrayList<>();
-        trades.add(tradeRepository.findById(1L).orElse(null));
-        trades.add(tradeRepository.findById(2L).orElse(null));
-        trades.add(tradeRepository.findById(3L).orElse(null));
-
-
-
-//        User user;
-//        try{
-//            user = userService.getUserFromHeader(authHeader);
-//            trades = user.getTrades();
-//        }catch(Exception e){
-//            trades = new ArrayList<>();// empty list
-//            System.out.println(e.getMessage());
-//        }
+        User user = userService.getUserFromHeader(authHeader);
+        List<Trade> trades = user.getTrades();
 
         TradeIndexResponse response = TradeIndexResponse.builder().trades(trades).build();
 
