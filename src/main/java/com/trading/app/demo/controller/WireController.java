@@ -23,12 +23,15 @@ public class WireController {
     private final WireRepository wireRepository;
 
     @PostMapping
-    public void createWire(@RequestBody WirePost request, @RequestHeader("Authorization") String authHeader){
+    public ResponseEntity<String> createWire(@RequestBody WirePost request, @RequestHeader("Authorization") String authHeader){
 
         User user = userService.getUserFromHeader(authHeader);
         Wire newWire = Wire.builder()
                 .amount(request.getAmount_in_cent())
+                .user(user)
                 .build();
         wireRepository.save(newWire);
+
+        return ResponseEntity.ok("wire created succesfully : " + newWire);
     }
 }
