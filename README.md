@@ -12,6 +12,8 @@ Authorization: Bearer MY.JWT.TOKEN
 
 So in the following table each secured endpoint must have this header to work. 
 
+This is an ongoing demo project, not suitable for production yet. 
+
 ## Endpoints API
 
 | Method | Secured | Route                        | Description                                                                                  |
