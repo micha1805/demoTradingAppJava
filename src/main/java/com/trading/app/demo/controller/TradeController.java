@@ -1,5 +1,6 @@
 package com.trading.app.demo.controller;
 
+import com.trading.app.demo.httprequestsformat.TradePost;
 import com.trading.app.demo.httpresponsesformat.OpenTradesResponse;
 import com.trading.app.demo.httpresponsesformat.TradeIndexResponse;
 import com.trading.app.demo.httpresponsesformat.TradeShowResponse;
@@ -7,16 +8,16 @@ import com.trading.app.demo.model.Trade;
 import com.trading.app.demo.model.User;
 import com.trading.app.demo.repository.TradeRepository;
 import com.trading.app.demo.repository.UserRepository;
+import com.trading.app.demo.service.TradeService;
 import com.trading.app.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class TradeController {
 
     private final UserService userService;
+    private final TradeService tradeService;
     private final TradeRepository tradeRepository;
     private final UserRepository userRepository;
     // insert user Id in request
@@ -92,9 +94,31 @@ public class TradeController {
     }
 
     @PostMapping(path = "/openTrade")
-    public String createTrade(){
+    public ResponseEntity<String> createTrade(@RequestBody TradePost newTrade, @RequestHeader("Authorization") String authHeader){
+        User user = userService.getUserFromHeader(authHeader);
+        Integer balance = userService.getCurrentBalance(user);
+
+        // get stock current price
+        Integer stockPrice = tradeService.getStockPriceNow(newTrade.getSymbol());
+
         // check balance in the validation
-        return "POST a trade";
+
+        Integer newTradeValue = newTrade.getQuantity();
+
+        if(balance < stockPrice* newTrade.getQuantity()){
+            return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).build();
+        }else{
+            Trade trade = Trade.builder()
+                    .quantity(newTrade.getQuantity())
+                    .symbol(newTrade.getSymbol())
+                    .open(true)
+                    .openDateTime(LocalDateTime.now())
+                    .openPriceInCent(stockPrice *100)
+                    .user(user)
+                    .build();
+            tradeRepository.save(trade);
+            return ResponseEntity.ok("Trade created successfully");
+        }
     }
 
 
