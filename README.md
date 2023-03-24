@@ -380,4 +380,5 @@ In no particular order :
 - add `created_at` and `updated_at` rows for each model/table.
 - Push in production
 - add some CI/CD (GitHub actions)
+- Use Spring AOP for JWT authorisation ? (@PreAuthorize ?)
 - etc.
